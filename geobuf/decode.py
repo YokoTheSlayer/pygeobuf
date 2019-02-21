@@ -3,7 +3,7 @@
 import collections
 import json
 
-from . import geobuf_pb2
+from . import geobufv3_pb2
 
 
 class Decoder:
@@ -17,12 +17,11 @@ class Decoder:
 
     def decode(self, data_str):
 
-        data = self.data = geobuf_pb2.Data()
+        data = self.data = geobufv3_pb2.Data()
         data.ParseFromString(data_str)
 
-        self.e = pow(10, data.precision)
-        self.dim = data.dimensions
-
+        self.e = pow(10, 6)
+        self.dim = 2
         data_type = data.WhichOneof('data_type')
 
         if data_type == 'feature_collection':
@@ -37,7 +36,6 @@ class Decoder:
         self.decode_properties(feature_collection.custom_properties, feature_collection.values, obj)
         for feature in feature_collection.features:
             obj['features'].append(self.decode_feature(feature))
-
         return obj
 
     def decode_feature(self, feature):
