@@ -35,7 +35,7 @@ def test_cli_roundtrip(props_json):
     runner = CliRunner()
     result = runner.invoke(cli, ['encode'], props_json)
     assert result.exit_code == 0
-    pbf = result.output_bytes
+    pbf = result.stdout_bytes
     result = runner.invoke(cli, ['decode'], pbf)
     assert result.exit_code == 0
     assert "@context" in result.output

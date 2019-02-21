@@ -5,7 +5,7 @@ import json
 
 import six
 
-from . import geobuf_pb2
+from . import geobufv3_pb2
 
 
 class Encoder:
@@ -29,7 +29,7 @@ class Encoder:
 
     def encode(self, data_json, precision=6, dim=2):
         obj = self.json = data_json
-        data = self.data = geobuf_pb2.Data()
+        data = self.data = geobufv3_pb2.Data()
 
         self.precision = precision
         self.dim = dim
